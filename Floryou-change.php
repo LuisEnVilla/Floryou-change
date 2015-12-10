@@ -79,6 +79,28 @@
 	add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 	function my_custom_checkout_field_display_admin_order_meta($order){
 		echo '<p><strong>'.__('Fecha de envió').':</strong> ' . get_post_meta( $order->id, 'Fecha de envió', true ) . '</p>';
-		echo '<p><strong>'.__('Horario de envió').':</strong> ' . get_post_meta( $order->id, 'Horario de envió', true ) . '</p>';
+		echo '<p><strong>'.__('Horario de envió').':</strong> ' . get_post_meta( $order->id, 'Horario de envió		', true ) . '</p>';
 	}
+
+
+	/*Mostrar los valores de los fields agregados a la paguina de gracias y vizta de la orden*/
+	function kia_display_order_data( $order_id ){  
+?>
+	<h2><?php _e( 'Fecha de entrega' ); ?></h2>
+	<table class="shop_table order_details additional_info">
+		<tbody>
+			<tr>
+				<th scope="row"><?php _e( 'Fecha de envió' ); ?>:</th>
+				<td> <?php echo get_post_meta( $order_id, 'Fecha de envió', true ); ?></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e( 'Horario de envió' ); ?>:</th>
+				<td> <?php echo get_post_meta( $order_id, 'Horario de envió', true ); ?></td>
+			</tr>
+		</tbody>
+	</table>
+<?php 
+	}
+	add_action( 'woocommerce_thankyou', 'kia_display_order_data', 20 );
+	add_action( 'woocommerce_view_order', 'kia_display_order_data', 20 );
 ?>
