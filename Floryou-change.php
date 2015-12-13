@@ -10,7 +10,7 @@
 		return __( 'Mi Texto ', 'woocommerce' );
 	}
 
-	/*Filtro para quitar fields del Checkout en WooComerce WP*/
+	/*Filtro para quitar fields del Checkout en Woocommerce WP*/
 	add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
 	function custom_override_checkout_fields( $fields ) {
 	  unset($fields['billing']['billing_country']);
@@ -85,10 +85,27 @@
 
 	/*Mostrar los valores de los fields agregados a la paguina de gracias y vizta de la orden*/
 	function kia_display_order_data( $order_id ){  
+		$order = new WC_Order($order_id);
 ?>
-	<h2><?php _e( 'Fecha de entrega' ); ?></h2>
+	<h2><?php _e( 'Datos de Entrega' ); ?></h2>
 	<table class="shop_table order_details additional_info">
 		<tbody>
+			<tr>
+				<th scope="row"><?php _e( 'Nombre' ); ?>:</th>
+				<td><?php echo esc_html( $order->shipping_first_name ); ?> <?php echo esc_html( $order->shipping_last_name ); ?></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e( 'Dirección' ); ?>:</th>
+				<td><?php echo esc_html( $order->shipping_address_1 ); ?>, <?php echo esc_html( $order->shipping_address_2 ); ?></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e( 'Ciudad' ); ?>:</th>
+				<td><?php echo esc_html( $order->shipping_city ); ?></td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e( 'C.P.' ); ?></th>
+				<td><?php echo esc_html( $order->shipping_postcode ); ?></td>
+			</tr>
 			<tr>
 				<th scope="row"><?php _e( 'Fecha de envió' ); ?>:</th>
 				<td> <?php echo get_post_meta( $order_id, 'Fecha de envió', true ); ?></td>
