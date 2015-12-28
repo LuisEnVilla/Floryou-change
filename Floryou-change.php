@@ -120,4 +120,19 @@
 	}
 	add_action( 'woocommerce_thankyou', 'kia_display_order_data', 20 );
 	add_action( 'woocommerce_view_order', 'kia_display_order_data', 20 );
+
+
+	/*Funcion para acomodar la descripcion del producto */
+	function woocommerce_template_product_description() {
+		woocommerce_get_template( 'single-product/tabs/description.php' );
+	}
+	add_action( 'woocommerce_single_product_summary', 'woocommerce_template_product_description', 20 );
+
+	/*Filtro para eliminar tabs dentro de la vista del producto*/
+	add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
+	function woo_remove_product_tabs( $tabs ) {
+		unset( $tabs['description'] );        // Remove the description tab
+		// unset( $tabs['additional_information'] );      // Remove the additional information tab
+		return $tabs;
+	}
 ?>
