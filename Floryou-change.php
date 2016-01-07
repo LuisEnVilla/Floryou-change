@@ -141,4 +141,10 @@
 		return true;
 	});
 
+	/*Filtro para limitar los caracteres de la nota del pedido*/
+	add_filter( 'woocommerce_checkout_fields' , 'custom_wc_checkout_fields' );
+	function custom_wc_checkout_fields( $fields ) {
+		$fields['order']['order_comments']['maxlength'] = '150';
+		return $fields;
+	}
 ?>
