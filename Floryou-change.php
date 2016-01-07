@@ -135,4 +135,10 @@
 		// unset( $tabs['additional_information'] );      // Remove the additional information tab
 		return $tabs;
 	}
+	
+	/*Filtro para que el check de crear una cuenta este activo por default*/
+	add_filter('woocommerce_create_account_default_checked' , function ($checked){
+		return true;
+	});
+
 ?>
