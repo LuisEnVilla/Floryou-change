@@ -176,4 +176,63 @@
 		$fields['order']['order_comments']['maxlength'] = '150';
 		return $fields;
 	}
+
+
+	/*Funcion para editar el estilo de los formularios segun su ID*/
+	function YOUR_PREFIX_add_nf_styles( $form_id ) {
+		if( $form_id == 6 || 11 ) {
+			echo '<style>
+		.widget_ninja_forms_widget.widget-container{
+			width:100%;
+			}
+		.ninja-forms-cont{
+			background:#ED193F;
+			color:white;
+			}
+		.ninja-forms-form-title{
+			color:white !important;
+				text-align: center;
+			}
+		.ninja-forms-field.countdown-timer{
+			border-color: #ED193F;
+			border: 1px solid #ED193F;
+			width:100%;
+			margin-bottom:15px;
+			background: #000;
+				padding: 15px 20px;
+				display: inline-block;
+				font-weight: 400;
+				text-align: center;
+				vertical-align: middle;
+				cursor: pointer;
+				font-size: 22px;
+				line-height: 1.42857143;
+				text-decoration: none;
+				color: #fff;
+			webkit-transition: all .4s ease-in-out;
+				-moz-transition: all .4s ease-in-out;
+				-o-transition: all .4s ease-in-out;
+				-ms-transition: all .4s ease-in-out;
+				transition: all .4s ease-in-out;
+			-webkit-appearance: none;
+			}
+		.ninja-forms-field.countdown-timer:hover{
+			border: 4px solid #fff;
+				border-color: #fff;
+				background: #95B94B;
+				color: #000;
+			}
+		.ninja-forms-form-wrap{
+			margin: 5px 5px;
+			}
+		.ninja-forms-req-symbol{
+			color:#95B94B;
+			}
+		.ninja-forms-field.ninja-forms-req{
+			color:black;
+			}
+			</style>';
+		}
+	}
+	add_action ( 'ninja_forms_display_css', 'YOUR_PREFIX_add_nf_styles' );
 ?>
