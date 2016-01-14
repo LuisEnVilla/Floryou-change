@@ -39,7 +39,7 @@
 
 		$fields['shipping']['date_shipping'] = array(
 			'type'		=> 'text',
-			'label'		=> __('Fecha', 'woocommerce'),
+			'label'		=> __('Selecciona la fecha de entrega de tu arreglo', 'woocommerce'),
 			'placeholder'   => _x('Fecha de envió...', 'placeholder', 'woocommerce'),
 			'required'	=> true,
 			'class'		=> array('form-row-wide'),
@@ -48,15 +48,15 @@
 
 		$fields['shipping']['shipping_schedule'] = array(
 			'type'		=> 'select',
-			'label'		=> __('Horario', 'woocommerce'),
+			'label'		=> __('Selecciona el horario de entrega', 'woocommerce'),
 			'required'	=> true,
 			'class'		=> array('form-row-wide'),
 			'clear'		=> true,
 			'options'	=> array(
 				'no_definido'	=> 'Selecciona el horario de envio...',
-				'mañana' => 'Por la mañana',
-				'tarde' => 'Por la Tarde',
-				'noche' => 'Por la noche')
+				'Por la mañana (8:00 AM – 12:00 PM)' => 'Por la mañana (8:00 AM – 12:00 PM)',
+				'Por la Tarde (12:00 PM – 4:00 PM)' => 'Por la Tarde (12:00 PM – 4:00 PM)',
+				'Por la noche (4:00 PM – 7:00 PM)' => 'Por la noche (4:00 PM – 7:00 PM)')
 		);
 
 		 return $fields;
@@ -91,36 +91,65 @@
 	<table class="shop_table order_details additional_info">
 		<tbody>
 			<tr>
-				<th scope="row"><?php _e( 'Nombre' ); ?>:</th>
-				<td><?php echo esc_html( $order->shipping_first_name ); ?> <?php echo esc_html( $order->shipping_last_name ); ?></td>
+				<th scope="row">
+					<?php _e( 'Nombre' ); ?>:</th>
+				<td>
+					<?php echo esc_html( $order->shipping_first_name ); ?>
+						<?php echo esc_html( $order->shipping_last_name ); ?>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e( 'Dirección' ); ?>:</th>
-				<td><?php echo esc_html( $order->shipping_address_1 ); ?>, <?php echo esc_html( $order->shipping_address_2 ); ?></td>
+				<th scope="row">
+					<?php _e( 'Dirección' ); ?>:</th>
+				<td>
+					<?php echo esc_html( $order->shipping_address_1 ); ?>,
+						<?php echo esc_html( $order->shipping_address_2 ); ?>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e( 'Ciudad' ); ?>:</th>
-				<td><?php echo esc_html( $order->shipping_city ); ?></td>
+				<th scope="row">
+					<?php _e( 'Ciudad' ); ?>:</th>
+				<td>
+					<?php echo esc_html( $order->shipping_city ); ?>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e( 'C.P.' ); ?></th>
-				<td><?php echo esc_html( $order->shipping_postcode ); ?></td>
+				<th scope="row">
+					<?php _e( 'C.P.' ); ?>
+				</th>
+				<td>
+					<?php echo esc_html( $order->shipping_postcode ); ?>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e( 'Fecha de envió' ); ?>:</th>
-				<td> <?php echo get_post_meta( $order_id, 'Fecha de envió', true ); ?></td>
+				<th scope="row">
+					<?php _e( 'Fecha de envió' ); ?>:</th>
+				<td>
+					<?php echo get_post_meta( $order_id, 'Fecha de envió', true ); ?>
+				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e( 'Horario de envió' ); ?>:</th>
-				<td> <?php echo get_post_meta( $order_id, 'Horario de envió', true ); ?></td>
+				<th scope="row">
+					<?php _e( 'Horario de envió' ); ?>:</th>
+				<td>
+					<?php echo get_post_meta( $order_id, 'Horario de envió', true ); ?>
+				</td>
 			</tr>
 		</tbody>
 	</table>
-<?php 
+	<?php
 	}
 	add_action( 'woocommerce_thankyou', 'kia_display_order_data', 20 );
 	add_action( 'woocommerce_view_order', 'kia_display_order_data', 20 );
 
+	/*Add a custom field (in an order) to the emails*/
+	add_filter('woocommerce_email_order_meta_keys', 'my_woocommerce_email_order_meta_keys');
+
+	function my_woocommerce_email_order_meta_keys( $keys ) {
+		$keys['Fecha de entrega de tu arreglo'] = 'Fecha de envió';
+		$keys['Horario de entrega de tu arreglo'] = 'Horario de envió';
+		return $keys;
+	}
 
 	/*Funcion para acomodar la descripcion del producto */
 	function woocommerce_template_product_description() {
