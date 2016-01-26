@@ -37,7 +37,7 @@
 	add_filter( 'woocommerce_checkout_fields' , 'add_checkout_fields' );
 	function add_checkout_fields( $fields ) {
 
-		$fields['shipping']['date_shipping'] = array(
+		$fields['order']['date_shipping'] = array(
 			'type'		=> 'text',
 			'label'		=> __('Selecciona la fecha de entrega de tu arreglo', 'woocommerce'),
 			'placeholder'   => _x('Fecha de envió...', 'placeholder', 'woocommerce'),
@@ -46,7 +46,7 @@
 			'clear'		=> true
 		);
 
-		$fields['shipping']['shipping_schedule'] = array(
+		$fields['order']['shipping_schedule'] = array(
 			'type'		=> 'select',
 			'label'		=> __('Selecciona el horario de entrega', 'woocommerce'),
 			'required'	=> true,
