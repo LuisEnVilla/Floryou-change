@@ -79,7 +79,7 @@
 	add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 	function my_custom_checkout_field_display_admin_order_meta($order){
 		echo '<p><strong>'.__('Fecha de envió').':</strong> ' . get_post_meta( $order->id, 'Fecha de envió', true ) . '</p>';
-		echo '<p><strong>'.__('Horario de envió').':</strong> ' . get_post_meta( $order->id, 'Horario de envió		', true ) . '</p>';
+		echo '<p><strong>'.__('Horario de envió').':</strong> ' . get_post_meta( $order->id, 'Horario de envió', true ) . '</p>';
 	}
 
 
